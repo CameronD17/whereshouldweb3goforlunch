@@ -1,12 +1,14 @@
 function buildRejectionTable (input) {
   var i, j, table=[];
   for (i in input) {
-    for (j=0; j<input[i]*100; j++) {
+    for (j=0; j<input[i]*1000; j++) {
       table.push(i);
     }
   }
   return function() {
-    return table[Math.floor(Math.random() * table.length)];
+	var dateStr = new Date(2018,1,13).setUTCHours(0,0,0,0).toString();
+	var tableEntry = Number(dateStr.substring(6,8) + dateStr.charAt(5));
+    return table[tableEntry];
   }
 }
 
