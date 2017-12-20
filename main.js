@@ -6,7 +6,7 @@ function buildRejectionTable (input) {
     }
   }
   return function() {
-	var dateStr = new Date(2018,1,13).setUTCHours(0,0,0,0).toString();
+	var dateStr = new Date().setUTCHours(0,0,0,0).toString();
 	var tableEntry = Number(dateStr.substring(6,8) + dateStr.charAt(5));
     return table[tableEntry];
   }
