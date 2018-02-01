@@ -1,3 +1,13 @@
+h1 {
+  font-size: 150px;
+  font-family: 'Open Sans',sans-serif;
+  text-align: center;  
+}
+
+a {
+	color: #FFF;
+}
+
 .container {
   position: absolute;
   top: 50%;
@@ -9,7 +19,7 @@
   -ms-transform: translate(-50%, -50%);
 }
 
-#logo {
+.logo {
 	max-width: 400px;
 	max-height: 400px;
 	display: block;
