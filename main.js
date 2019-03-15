@@ -1,18 +1,20 @@
 var imgs = {
-	"bluebird.jpg":0.350, 
-	"anima.jpg":0.125, 
-	"tesco.jpg":0.070,
-	"lidl.png":0.105,
-	"digiorgio.png":0.095,
-	"bluebear.jpg":0.045,
-	"sullys.jpg":0.050,
-	"coro.png":0.030,
-	"lezzetli.jpg":0.030,
-	"margiotta.png":0.040,
-	"waterofleith.png":0.025,
-	"newtowndeli.jpg":0.020,
-	"galway.png":0.005,
-	"coffeeangel.jpg":0.010
+	"bluebird.jpg":0.3125, 
+	"anima.jpg":0.0588, 
+	"tesco.jpg":0.0575,
+	"lidl.png":0.0525,
+	"digiorgio.png":0.0494,
+	"bluebear.jpg":0.0831,
+	"sullys.jpg":0.0438,
+	"lezzetli.jpg":0.0488,
+	"margiotta.png":0.0475,
+	"waterofleith.png":0.0413,
+	"newtowndeli.jpg":0.0238,
+	"galway.png":0.0488,
+	"coffeeangel.jpg":0.0488,
+  "mands.jpg":0.0313,
+  "caffeine.jpg":0.0288,
+  "finnegans.jpg":0.0238
 };
 
 var rejectionTable;
@@ -28,10 +30,13 @@ function buildRejectionTable ()	{
 }
 	
 function setImg (date) {  
-	var dateStr = new Date(date).setUTCHours(0,0,0,0).toString();
-	var tableEntry = Number(dateStr.substring(6,8) + dateStr.substring(4,6));
-	document.getElementById('logo').src = "img/" + rejectionTable[tableEntry];
-	console.log(rejectionTable[tableEntry]);
+	var tableEntry = getTableEntry(date);
+	document.getElementById('logo').src = "img/" + tableEntry;
+}
+
+function getTableEntry (date) {
+  var dateStr = new Date(date).setUTCHours(0,0,0,0).toString();
+	return rejectionTable[Number(dateStr.substring(6,8) + dateStr.substring(4,6))];
 }
 
 function buildCalendar () {
@@ -40,7 +45,8 @@ function buildCalendar () {
 			contentBox: "#calendar",
 			width:'340px',
 			date: new Date()}).render();
-
+    calendar.selectDates(new Date()); 
+      
 		var dtdate = Y.DataType.Date;
 
 		calendar.on("selectionChange", function (ev) {
@@ -51,10 +57,15 @@ function buildCalendar () {
 	document.getElementById('calendar').style.display = 'none';
 }
 
-window.onload = function() {
+window.onload = function() {  
 	buildRejectionTable();
-	buildCalendar();
-	setImg(new Date());
+	buildCalendar();  
+  var date = Date.parse(window.location.search.replace("?", "").split("&")[0]);
+  if (!isNaN(date)) {
+    window.location.replace('http://whereshouldweb3goforlun.ch/img/'+getTableEntry(date));    
+  } else {
+    setImg(new Date());
+  }
 };
 
 function show () {
